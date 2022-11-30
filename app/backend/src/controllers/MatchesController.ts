@@ -6,7 +6,10 @@ export default class MatchesController {
   private _matchesService = new MatchesService();
 
   async getAllMatches(req: Request, res: Response): Promise<void> {
-    const { status, response } = await this._matchesService.getAllMatches();
+    const { inProgress } = req.query;
+    const { status, response } = (!inProgress)
+      ? await this._matchesService.getAllMatches()
+      : await this._matchesService.getByProgress(String(inProgress));
     res.status(status).json(response);
   }
 }
