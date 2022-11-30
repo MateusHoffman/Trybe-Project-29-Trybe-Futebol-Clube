@@ -1,4 +1,3 @@
-// import 'express-async-errors';
 import { Router } from 'express';
 import loginValidate from '../middlewares/validations/loginValidate';
 import LoginController from '../controllers/LoginController';
