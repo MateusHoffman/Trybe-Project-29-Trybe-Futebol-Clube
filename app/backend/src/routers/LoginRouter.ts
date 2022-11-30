@@ -8,5 +8,6 @@ const router = Router();
 const loginController = new LoginController();
 
 router.post('/', loginValidate, (req, res) => loginController.post(req, res));
+router.get('/validate', (req, res) => loginController.getRoleByToken(req, res));
 
 export default router;

@@ -1,21 +1,20 @@
-import { sign } from 'jsonwebtoken';
+// import { Jwt, sign, verify } from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'senhasecreta';
+const JWT_SECRET = process.env.JWT_SECRET || 'jwt_secret';
 
 const generateToken = (infoToSave: any) => {
-  const token = sign(infoToSave, JWT_SECRET, { algorithm: 'HS256' });
+  const token = jwt.sign(infoToSave, JWT_SECRET, { algorithm: 'HS256' });
   return token;
 };
 
-// const authenticateToken = (token) => {
-//   if (!token) throw { status: 401, message: 'Missing token' };
+const validateToken = (token: any) => {
+  try {
+    const validation = jwt.verify(token, JWT_SECRET);
+    return validation as jwt.JwtPayload;
+  } catch (error) {
+    return null;
+  }
+};
 
-//   try {
-//     const validateToken = jwt.verify(token, TOKEN_SECREAT_KEY);
-//     return validateToken;
-//   } catch (error) {
-//     throw { status: 401, message: 'JWT malformed' };
-//   }
-// };
-
-export default generateToken;
+export { generateToken, validateToken };
