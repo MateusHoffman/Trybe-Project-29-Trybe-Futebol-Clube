@@ -38,4 +38,13 @@ export default class MatchesService {
     );
     return { status: 200, response: { message: 'Finished' } };
   };
+
+  public patchMatches = async (newInfo: any, id: any) => {
+    const { homeTeamGoals, awayTeamGoals } = newInfo;
+    await Matches.update(
+      { homeTeamGoals, awayTeamGoals },
+      { where: { id } },
+    );
+    return { status: 200, response: { message: 'Updated' } };
+  };
 }
