@@ -22,4 +22,12 @@ export default class MatchesService {
     });
     return { status: 200, response: matches };
   };
+
+  public postMatches = async (reqInfo: any) => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = reqInfo;
+    const matches = await Matches.create({
+      homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, inProgress: true,
+    });
+    return { status: 201, response: matches };
+  };
 }
