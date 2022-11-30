@@ -17,4 +17,9 @@ export default class MatchesController {
     const { status, response } = await this._matchesService.postMatches(req.body);
     res.status(status).json(response);
   }
+
+  async patchMatches(req: Request, res: Response): Promise<void> {
+    const { status, response } = await this._matchesService.patchMatches(req.params.id);
+    res.status(status).json(response);
+  }
 }

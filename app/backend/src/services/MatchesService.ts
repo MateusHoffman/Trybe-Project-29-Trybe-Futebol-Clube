@@ -30,4 +30,12 @@ export default class MatchesService {
     });
     return { status: 201, response: matches };
   };
+
+  public patchMatches = async (id: any) => {
+    await Matches.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return { status: 200, response: { message: 'Finished' } };
+  };
 }
