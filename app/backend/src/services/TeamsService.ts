@@ -1,4 +1,3 @@
-// import { generateToken, validateToken } from '../utils/JWT';
 import Teams from '../database/models/Teams';
 
 export default class TeamsService {
