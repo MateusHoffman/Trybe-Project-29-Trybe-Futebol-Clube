@@ -2,5 +2,8 @@
   "eslint.workingDirectories": [
     "app/backend",
     "app/frontend"
+  ],
+  "cSpell.words": [
+    "Palmeiras"
   ]
 }
