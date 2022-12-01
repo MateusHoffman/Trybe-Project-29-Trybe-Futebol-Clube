@@ -5,8 +5,13 @@ import LeaderboardService from '../services/LeaderboardService';
 export default class LeaderboardController {
   private _leaderboardService = new LeaderboardService();
 
-  async getAllLeaderboardSort(req: Request, res: Response): Promise<void> {
-    const { status, response } = await this._leaderboardService.getAllLeaderboard();
+  async getAllLeaderboardHome(req: Request, res: Response): Promise<void> {
+    const { status, response } = await this._leaderboardService.getAllLeaderboard('homeTeam');
+    res.status(status).json(response);
+  }
+
+  async getAllLeaderboardAway(req: Request, res: Response): Promise<void> {
+    const { status, response } = await this._leaderboardService.getAllLeaderboard('awayTeam');
     res.status(status).json(response);
   }
 }
