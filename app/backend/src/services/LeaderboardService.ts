@@ -68,4 +68,32 @@ export default class LeaderboardService {
     const arrInfoTeamsSort = this.sortLeaderboard(arrInfoTeams);
     return { status: 200, response: arrInfoTeamsSort };
   };
+
+  public getAllHomeAway = async () => {
+    const arrComplete = await this.calcHomeAway();
+    const arrSort = this.sortLeaderboard(arrComplete);
+    return { status: 200, response: arrSort };
+  };
+
+  calcHomeAway = async () => {
+    const arrHome = (await this.getAllLeaderboard('homeTeam')).response;
+    const arrAway = (await this.getAllLeaderboard('awayTeam')).response;
+    return arrHome.map((team: any) => {
+      const teamAway = arrAway.find((e: any) => e.name === team.name);
+      return {
+        name: team.name,
+        totalPoints: team.totalPoints + teamAway.totalPoints,
+        totalGames: team.totalGames + teamAway.totalGames,
+        totalVictories: team.totalVictories + teamAway.totalVictories,
+        totalDraws: team.totalDraws + teamAway.totalDraws,
+        totalLosses: team.totalLosses + teamAway.totalLosses,
+        goalsFavor: team.goalsFavor + teamAway.goalsFavor,
+        goalsOwn: team.goalsOwn + teamAway.goalsOwn,
+        goalsBalance: team.goalsBalance + teamAway.goalsBalance,
+        efficiency: (((team.totalPoints + teamAway.totalPoints)
+          / ((team.totalGames + teamAway.totalGames) * 3)) * 100).toFixed(2),
+        // efficiency: ((+team.efficiency) + (+teamAway.efficiency)) / 2,
+      };
+    });
+  };
 }
